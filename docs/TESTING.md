@@ -2,28 +2,29 @@
 
 ## Running
 
+Run the checked-in test module with pytest:
+
 ```sh
-uv run pytest --cov=tool_permission_policy   # tests with coverage report
-uv run python scripts/check.py      # every gate, as CI and the factory run it
+pytest tests/test_tool_permission_policy.py
 ```
 
 ## Policy
 
-- Branch coverage of `src/tool_permission_policy` must stay at or above 80 %; the gate fails below it.
-- Tests exercise the public API (`import tool_permission_policy`) and assert every observable effect:
-  return values, raised exceptions and their messages.
-- Each bug fix starts with a failing test that reproduces it.
-- Tests are deterministic: no network, no wall clock, no dependence on test order.
+`tests/test_tool_permission_policy.py` is the checked-in test module. It contains unit tests covering:
+
+- `test_version`: the module exposes `__version__` as a string.
+- `test_load_policy_minimal`: a minimal policy loads and evaluates a decision.
+- `test_load_policy_json_accepts_bytes`: `load_policy_json` accepts bytes input.
+- `test_load_policy_json_size_limit`: `max_bytes` rejects oversized input with `PolicyError` code `too_large` and accepts the exact limit.
+- `test_load_policy_json_malformed`: malformed JSON raises `PolicyError` code `invalid_policy`.
+- `test_load_policy_invalid_version`: an invalid policy version raises `PolicyError` code `invalid_policy`.
+- `test_load_policy_invalid_default`: an invalid default effect raises `PolicyError` code `invalid_policy`.
+- `test_load_policy_unknown_constraint`: an unknown argument constraint raises `PolicyError` with a message containing the constraint path and name.
 
 ## Tiers
 
-- Local tier (every gate run, coverage measured here): unit and property tests, plus conformance on small
-  fixtures kept in the repository.
-- CI tier: conformance that needs an external tool or a download. Mark them `@pytest.mark.conformance`; `scripts/check.py` deselects them locally
-  (unless `FABRICA_CI=1`). The CI `conformance` job sets `FABRICA_CI=1` and runs the full suite. Tools are installed
-  by the optional `ci/conformance-setup.sh` (bash, CI only; verify every download against a pinned SHA-256), and
-  tagged tests skip cleanly when their tool is missing.
+The repository listing contains a single test module. No separate local/CI tiers, conformance test files or shared fixtures are present in the listing.
 
 ## Layout
 
-`tests/test_<module>.py` mirrors each public module. Shared fixtures go in `tests/conftest.py`.
+`tests/test_tool_permission_policy.py` mirrors the public package module `tool_permission_policy`.

@@ -1,0 +1,16 @@
+# tool-permission-policy
+
+> Declarative allow, ask and deny policies for agent tool calls: tool name globs, argument constraints on paths, hosts, values and numbers, context conditions and fail-closed deny Python package `trysac-tool-permission-policy`, import name `tool_permission_policy`, MIT licensed,
+> Python >= 3.10, no runtime dependencies.
+
+## Docs
+
+- [README](README.md): problem, install, usage example
+- [AGENTS](AGENTS.md): commands, folder map, conventions, limits
+- [Architecture](docs/ARCHITECTURE.md): shape of the package and its public API
+- [Testing](docs/TESTING.md): how to run and extend the tests
+
+## Optional
+
+- [Stack](docs/STACK.md): tools used and discarded
+- [Changelog](CHANGELOG.md): release history

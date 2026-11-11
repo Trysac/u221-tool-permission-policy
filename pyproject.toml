@@ -19,6 +19,9 @@ classifiers = [
 ]
 dependencies = []
 
+[project.scripts]
+tool-permission-policy = "tool_permission_policy.__main__:main"
+
 [project.urls]
 Homepage = "https://github.com/Trysac/u221-tool-permission-policy"
 Source = "https://github.com/Trysac/u221-tool-permission-policy"
